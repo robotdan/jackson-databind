@@ -302,6 +302,14 @@ public enum MapperFeature implements ConfigFeature
      */
     SORT_PROPERTIES_ALPHABETICALLY(false),
 
+    /**
+     * Feature that determines where to omit fields with a value of <code>null</code>.
+     *<p>
+     * Feature is disabled by default.
+     * @since 2.9
+     */
+    NEVER_SET_AS_NULL(false),
+
     /*
     /******************************************************
     /* Name-related features

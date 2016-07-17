@@ -3746,9 +3746,13 @@ public class ObjectMapper
         Object result;
         JsonToken t = _initForReading(p);
         if (t == JsonToken.VALUE_NULL) {
-            // Ask JsonDeserializer what 'null value' to use:
-            DeserializationContext ctxt = createDeserializationContext(p, cfg);
-            result = _findRootDeserializer(ctxt, valueType).getNullValue(ctxt);
+            if (_deserializationConfig.isEnabled(MapperFeature.NEVER_SET_AS_NULL)) {
+                result = null;
+            } else {
+                // Ask JsonDeserializer what 'null value' to use:
+                DeserializationContext ctxt = createDeserializationContext(p, cfg);
+                result = _findRootDeserializer(ctxt, valueType).getNullValue(ctxt);
+            }
         } else if (t == JsonToken.END_ARRAY || t == JsonToken.END_OBJECT) {
             result = null;
         } else { // pointing to event other than null
@@ -3773,10 +3777,14 @@ public class ObjectMapper
             Object result;
             JsonToken t = _initForReading(p);
             if (t == JsonToken.VALUE_NULL) {
-                // Ask JsonDeserializer what 'null value' to use:
-                DeserializationContext ctxt = createDeserializationContext(p,
+                if (_deserializationConfig.isEnabled(MapperFeature.NEVER_SET_AS_NULL)) {
+                    result = null;
+                } else {
+                    // Ask JsonDeserializer what 'null value' to use:
+                    DeserializationContext ctxt = createDeserializationContext(p,
                         getDeserializationConfig());
-                result = _findRootDeserializer(ctxt, valueType).getNullValue(ctxt);
+                    result = _findRootDeserializer(ctxt, valueType).getNullValue(ctxt);
+                }
             } else if (t == JsonToken.END_ARRAY || t == JsonToken.END_OBJECT) {
                 result = null;
             } else {

@@ -100,7 +100,9 @@ public final class FieldProperty
     {
         Object value = deserialize(p, ctxt);
         try {
-            _field.set(instance, value);
+            if (value != null || !ctxt.isEnabled(MapperFeature.NEVER_SET_AS_NULL)) {
+                _field.set(instance, value);
+            }
         } catch (Exception e) {
             _throwAsIOE(p, e, value);
         }

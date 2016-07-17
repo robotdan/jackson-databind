@@ -511,7 +511,10 @@ public class MapDeserializer
                 if (useObjectId) {
                     referringAccumulator.put(key, value);
                 } else {
-                    result.put(key, value);
+                    // Only write null when NEVER_SET_AS_NULL is disabled.
+                    if (value != null || !ctxt.isEnabled(MapperFeature.NEVER_SET_AS_NULL)) {
+                        result.put(key, value);
+                    }
                 }
             } catch (UnresolvedForwardReference reference) {
                 handleUnresolvedReference(p, referringAccumulator, key, reference);

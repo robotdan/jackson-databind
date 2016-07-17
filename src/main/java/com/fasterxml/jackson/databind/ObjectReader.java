@@ -1607,7 +1607,11 @@ public class ObjectReader
             JsonToken t = _initForReading(ctxt, p);
             if (t == JsonToken.VALUE_NULL) {
                 if (_valueToUpdate == null) {
-                    result = _findRootDeserializer(ctxt).getNullValue(ctxt);
+                    if (_config.isEnabled(MapperFeature.NEVER_SET_AS_NULL)) {
+                        result = null;
+                    } else {
+                        result = _findRootDeserializer(ctxt).getNullValue(ctxt);
+                    }
                 } else {
                     result = _valueToUpdate;
                 }

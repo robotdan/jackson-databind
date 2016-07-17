@@ -28,7 +28,7 @@ public abstract class StdDeserializer<T>
     /**
      * Bitmask that covers {@link DeserializationFeature#USE_BIG_INTEGER_FOR_INTS}
      * and {@link DeserializationFeature#USE_LONG_FOR_INTS}, used for more efficient
-     * cheks when coercing integral values for untyped deserialization.
+     * checks when coercing integral values for untyped deserialization.
      *
      * @since 2.6
      */
